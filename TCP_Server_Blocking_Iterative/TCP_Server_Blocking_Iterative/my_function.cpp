@@ -120,7 +120,8 @@ bool ShutdownConnection(SOCKET hClientSocket)
 		result = recv(hClientSocket, buff, sizeof(buff)/sizeof(char), 0);
 		if (SOCKET_ERROR == result)
 		{
-			cout << "recv error : " << WSAGetLastError() << endl;			return false;
+			cout << "recv error : " << WSAGetLastError() << endl;			
+			return false;
 		}
 		else
 		{
