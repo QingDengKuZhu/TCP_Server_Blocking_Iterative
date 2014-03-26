@@ -6,8 +6,8 @@ using std::cout;
 
 SOCKET BindListen(void)
 {
-	SOCKET hsock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (INVALID_SOCKET == hsock)
+	SOCKET hListenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (INVALID_SOCKET == hListenSocket)
 	{
 		cout << "socket error : " << WSAGetLastError() << endl;
 		return INVALID_SOCKET;
@@ -19,7 +19,7 @@ SOCKET BindListen(void)
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
 	serv_addr.sin_port = htons(DEF_PORT);
-	if(SOCKET_ERROR == bind(hsock, (const struct sockaddr *)&serv_addr, sizeof(struct sockaddr)))
+	if(SOCKET_ERROR == bind(hListenSocket, (const struct sockaddr *)&serv_addr, sizeof(struct sockaddr)))
 	{
 		cout << "bind error : " << WSAGetLastError() << endl;
 		return INVALID_SOCKET;
@@ -28,14 +28,14 @@ SOCKET BindListen(void)
 	/************************************************************************/
 	/* 开始监听(将其设置为监听状态)                                                                     */
 	/************************************************************************/
-	if (SOCKET_ERROR == listen(hsock, SOMAXCONN))
+	if (SOCKET_ERROR == listen(hListenSocket, SOMAXCONN))
 	{
 		cout << "listen error : " << WSAGetLastError() << endl;
-		closesocket(hsock);
+		closesocket(hListenSocket);
 		return INVALID_SOCKET;
 	}
-
-	return hsock;
+	
+	return hListenSocket;
 }
 
 SOCKET AcceptConnection(SOCKET hListenSocket)

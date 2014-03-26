@@ -30,7 +30,7 @@ bool ProcessConnection(SOCKET hClientSocket);
 bool ShutdownConnection(SOCKET hClientSocket);
 
 /************************************************************************/
-/* 服务器主题函数                                                                     */
+/* 服务器主体函数                                                                     */
 /************************************************************************/
 void DoWork(void);
 #endif
